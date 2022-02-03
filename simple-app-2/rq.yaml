@@ -3,6 +3,8 @@ kind: ResourceQuota
 metadata:
   name: resource-quota
   namespace: todo
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   hard:
     pods: "10"
