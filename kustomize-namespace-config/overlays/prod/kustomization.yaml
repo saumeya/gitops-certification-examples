@@ -4,7 +4,11 @@ kind: Kustomization
 bases:
 - ../../base
 
-patchesStrategicMerge:
-- namespace.yaml
-- limit-range.yaml
-- resource-quota.yaml
+patchesJson6902:
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: prod
+  target:    
+    kind: Namespace    
+    version: v1
