@@ -8,7 +8,8 @@ patchesJson6902:
 - patch: |-
     - op: replace
       path: /metadata/name
-      value: prod
+      value: prod1
   target:    
-    kind: Namespace    
+    kind: Namespace  
+    name: prod  
     version: v1
