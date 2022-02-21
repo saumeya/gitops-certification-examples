@@ -8,10 +8,10 @@ resources:
 patchesJson6902:
 - patch: |-
     - op: replace
-      path: /metadata/name
-      value: prod1
+      path: /metadata/namespace
+      value: prod
   target:    
-    kind: Namespace  
-    name: dev  
+    kind: ResourceQuota  
+    name: resource-quota  
     version: v1
     group: apps
