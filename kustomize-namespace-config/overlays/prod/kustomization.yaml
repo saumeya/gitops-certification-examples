@@ -13,3 +13,4 @@ patchesJson6902:
     kind: Namespace  
     name: prod  
     version: v1
+    group: apps
