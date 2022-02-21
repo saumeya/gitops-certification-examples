@@ -4,3 +4,14 @@ resources:
 - namespace.yaml
 - resource-quota.yaml
 - limit-range.yaml
+
+patchesJson6902:
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: prod1
+  target:    
+    kind: Namespace  
+    name: dev  
+    version: v1
+    group: apps
