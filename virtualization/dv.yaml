@@ -4,7 +4,7 @@ metadata:
   labels:
     kubevirt.io/created-by: 30fe6b50-d0b9-48da-9c72-39a75ea72aac
   name: win10-rootdisk1-hnur5
-  namespace: openshift-gitops
+  namespace: default
 spec:
   pvc:
     accessModes:
