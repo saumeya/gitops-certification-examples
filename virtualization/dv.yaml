@@ -1,0 +1,18 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  labels:
+    kubevirt.io/created-by: 30fe6b50-d0b9-48da-9c72-39a75ea72aac
+  name: win10-rootdisk1-hnur5
+  namespace: default
+spec:
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 60Gi
+    storageClassName: pmo-local
+    volumeMode: Filesystem
+  source:
+    blank: {}

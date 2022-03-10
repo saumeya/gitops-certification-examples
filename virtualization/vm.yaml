@@ -1,0 +1,112 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  labels:
+    app: win10
+    os.template.kubevirt.io/win10: "true"
+    vm.kubevirt.io/template: windows10-desktop-medium
+    vm.kubevirt.io/template.namespace: openshift
+    vm.kubevirt.io/template.revision: "1"
+    vm.kubevirt.io/template.version: v0.16.2
+    workload.template.kubevirt.io/desktop: "true"
+  name: win10
+  namespace: default
+spec:
+  dataVolumeTemplates:
+    - metadata:
+        creationTimestamp: null
+        name: win10-rootdisk1-hnur5
+        namespace: default
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 60Gi
+          storageClassName: pmo-local
+          volumeMode: Filesystem
+        source:
+          blank: {}
+  running: true
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/flavor: medium
+        vm.kubevirt.io/os: windows10
+        vm.kubevirt.io/workload: desktop
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: win10
+        os.template.kubevirt.io/win10: "true"
+        vm.kubevirt.io/name: win10
+        workload.template.kubevirt.io/desktop: "true"
+    spec:
+      domain:
+        clock:
+          timer:
+            hpet:
+              present: false
+            hyperv: {}
+            pit:
+              tickPolicy: delay
+            rtc:
+              tickPolicy: catchup
+          utc: {}
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - bootOrder: 1
+              disk:
+                bus: sata
+              name: rootdisk1
+            - cdrom:
+                bus: sata
+              name: windows-guest-tools
+          inputs:
+            - bus: usb
+              name: tablet
+              type: tablet
+          interfaces:
+            - macAddress: 02:11:a1:00:00:07
+              masquerade: {}
+              model: e1000e
+              name: default
+        features:
+          acpi: {}
+          apic: {}
+          hyperv:
+            frequencies: {}
+            ipi: {}
+            reenlightenment: {}
+            relaxed: {}
+            reset: {}
+            runtime: {}
+            spinlocks:
+              spinlocks: 8191
+            synic: {}
+            synictimer:
+              direct: {}
+            tlbflush: {}
+            vapic: {}
+            vpindex: {}
+        machine:
+          type: pc-q35-rhel8.4.0
+        resources:
+          requests:
+            memory: 8Gi
+      hostname: win10
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 3600
+      volumes:
+        - dataVolume:
+            name: win10-rootdisk1-hnur5
+          name: rootdisk1
+        - containerDisk:
+            image: registry.redhat.io/container-native-virtualization/virtio-win@sha256:4a39a65ea53333a805bac724335d9f23e5fb1ec4f40848d403bc00b0582af00b
+          name: windows-guest-tools
