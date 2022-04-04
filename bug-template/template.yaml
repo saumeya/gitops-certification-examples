@@ -1,0 +1,39 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: my-template
+objects:
+- kind: ConfigMap
+  apiVersion: v1
+  metadata:
+    name: my-template-config
+    annotations:
+      template.openshift.io/expose-username: "{.data['my\\.username']}"
+  data:
+    my.username: foo
+- kind: Secret
+  apiVersion: v1
+  metadata:
+    name: my-template-config-secret
+    annotations:
+      template.openshift.io/base64-expose-password: "{.data['password']}"
+  stringData:
+    password: bar
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: my-template-service
+    annotations:
+      template.openshift.io/expose-service_ip_port: "{.spec.clusterIP}:{.spec.ports[?(.name==\"web\")].port}"
+  spec:
+    ports:
+    - name: "web"
+      port: 8080
+- kind: Route
+  apiVersion: route.openshift.io/v1
+  metadata:
+    name: my-template-route
+    annotations:
+      template.openshift.io/expose-uri: "http://{.spec.host}{.spec.path}"
+  spec:
+    path: mypath
