@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: appOfApp
+spec:
+  destination:
+    name: ''
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: simple-app
+    repoURL: 'https://github.com/saumeya/gitops-certification-examples.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated: null
