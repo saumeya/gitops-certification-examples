@@ -7,7 +7,7 @@ spec:
     namespace: default
     server: 'https://kubernetes.default.svc'
   source:
-    path: simple-app
+    path: simple-app-3
     repoURL: 'https://github.com/saumeya/gitops-certification-examples.git'
     targetRevision: HEAD
   project: default
